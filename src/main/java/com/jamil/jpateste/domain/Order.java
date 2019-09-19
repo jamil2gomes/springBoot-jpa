@@ -5,12 +5,16 @@ import java.time.Instant;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.jamil.jpateste.domain.enuns.OrderStatus;
 
 @Entity
 @Table(name = "tb_order")
@@ -26,14 +30,18 @@ public class Order implements Serializable {
 	@JoinColumn(name = "client_id")
 	private User client;
 	
+	@Enumerated(EnumType.STRING)
+	private OrderStatus status;
+	
 	public Order() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Order(Long id, Instant data, User client) {
+	public Order(Long id, Instant data, OrderStatus status , User client) {
 		super();
 		this.id = id;
 		this.data = data;
+		this.status = status;
 		this.client = client;
 	}
 
@@ -59,6 +67,14 @@ public class Order implements Serializable {
 
 	public void setClient(User client) {
 		this.client = client;
+	}
+
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
 	}
 
 	@Override
