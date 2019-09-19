@@ -1,0 +1,82 @@
+package com.jamil.jpateste.domain;
+
+import java.io.Serializable;
+import java.time.Instant;
+import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tb_order")
+public class Order implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	private Instant data;
+	
+	@ManyToOne
+	@JoinColumn(name = "client_id")
+	private User client;
+	
+	public Order() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Order(Long id, Instant data, User client) {
+		super();
+		this.id = id;
+		this.data = data;
+		this.client = client;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Instant getData() {
+		return data;
+	}
+
+	public void setData(Instant data) {
+		this.data = data;
+	}
+
+	public User getClient() {
+		return client;
+	}
+
+	public void setClient(User client) {
+		this.client = client;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(client, data, id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Order other = (Order) obj;
+		return Objects.equals(client, other.client) && Objects.equals(data, other.data) && Objects.equals(id, other.id);
+	}
+	
+	
+}
