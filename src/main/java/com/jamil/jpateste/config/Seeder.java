@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.jamil.jpateste.domain.Category;
 import com.jamil.jpateste.domain.Order;
 import com.jamil.jpateste.domain.User;
 import com.jamil.jpateste.domain.enuns.OrderStatus;
+import com.jamil.jpateste.repositories.CategoryRepository;
 import com.jamil.jpateste.repositories.OrderRepository;
 import com.jamil.jpateste.repositories.UserRepository;
 
@@ -20,14 +22,21 @@ public class Seeder implements CommandLineRunner {
 	private UserRepository repo;
 	@Autowired
 	private OrderRepository orderRepo;
+	
+	@Autowired
+	private CategoryRepository catRepo;
 
 	@Override
 	public void run(String... args) throws Exception {
 		
 		repo.deleteAll();
 		orderRepo.deleteAll();
+		catRepo.deleteAll();
 	
-			
+		Category c1 = new Category(null, "Livros");	
+		Category c2 = new Category(null, "Eletronicos");	
+		Category c3 = new Category(null, "Games");	
+		
 		User u1 = new User(null, "Jamil", "jamil@gmail.com", "987654378", "senha");
 		User u2 = new User(null, "Josue", "josue@gmail.com", "987654378", "senha1");
 		
@@ -37,6 +46,7 @@ public class Seeder implements CommandLineRunner {
 		
 		repo.saveAll(Arrays.asList(u1, u2));
 		orderRepo.saveAll(Arrays.asList(o1,o2,o3));
+		catRepo.saveAll(Arrays.asList(c1, c2, c3));
 		
 	}
 	
