@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import com.jamil.jpateste.domain.Category;
 import com.jamil.jpateste.domain.Order;
 import com.jamil.jpateste.domain.OrderItem;
+import com.jamil.jpateste.domain.Payment;
 import com.jamil.jpateste.domain.Product;
 import com.jamil.jpateste.domain.User;
 import com.jamil.jpateste.domain.enuns.OrderStatus;
@@ -87,6 +88,15 @@ public class Seeder implements CommandLineRunner {
 		OrderItem oi4 = new OrderItem(o3, p4, 2, p3.getPrice());
 		
 		orderItemRepo.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+		
+		//------------------------ PAGAMENTOS -----------------------------------
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		Payment pay2 = new Payment(null, Instant.parse("2019-07-22T16:00:22Z"), o3);
+		
+		o1.setPayment(pay1);
+		o3.setPayment(pay2);
+		
+		orderRepo.saveAll(Arrays.asList(o1, o3));
 				
 		
 	}

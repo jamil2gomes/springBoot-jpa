@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jamil.jpateste.domain.User;
 import com.jamil.jpateste.repositories.UserRepository;
+import com.jamil.jpateste.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class UserService {
@@ -23,6 +24,7 @@ public class UserService {
 		
 		User user = repo.findById(id).orElse(null);
 		
+		if(user == null) throw new ObjectNotFoundException("Usuário não encontrado no banco de dados");
 		return user;
 	}
 }

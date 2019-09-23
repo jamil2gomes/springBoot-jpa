@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.jamil.jpateste.domain.Product;
 import com.jamil.jpateste.repositories.ProductRepository;
+import com.jamil.jpateste.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ProductService {
@@ -22,6 +23,8 @@ public class ProductService {
 	public Product findById(Long id) {
 		
 		Product prod = repo.findById(id).orElse(null);
+		
+		if(prod == null) throw new ObjectNotFoundException("Produto não encontrado no banco de dados");
 		
 		return prod;
 	}
