@@ -2,7 +2,9 @@ package com.jamil.jpateste.domain;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.jamil.jpateste.domain.enuns.OrderStatus;
@@ -26,12 +29,18 @@ public class Order implements Serializable {
 	private Long id;
 	private Instant data;
 	
+	@Enumerated(EnumType.STRING)
+	private OrderStatus status;
+	
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
 	
-	@Enumerated(EnumType.STRING)
-	private OrderStatus status;
+	@OneToMany(mappedBy = "id.order")
+	private Set<OrderItem> itens = new HashSet<>();
+	
+	
+	
 	
 	public Order() {
 		
@@ -75,6 +84,10 @@ public class Order implements Serializable {
 
 	public void setStatus(OrderStatus status) {
 		this.status = status;
+	}
+	
+	public Set<OrderItem> getItens() {
+		return itens;
 	}
 
 	@Override
